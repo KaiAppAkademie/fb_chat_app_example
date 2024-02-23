@@ -33,4 +33,13 @@ class FirebaseChatRepository implements ChatRepository {
       "timestamp": messageModel.timestamp
     });
   }
+
+
+
+  @override
+  void deleteMessage(MessageModel messageModel) {
+    final CollectionReference<Map<String, dynamic>> messagesCollectionsRef =
+        _firestore.collection('messages');
+      messagesCollectionsRef.doc(messageModel.id).delete();
+  }
 }

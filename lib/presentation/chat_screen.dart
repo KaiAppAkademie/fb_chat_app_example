@@ -27,14 +27,17 @@ class ChatScreen extends StatelessWidget {
               itemCount: chatProvider.chatMessages.length,
               itemBuilder: (context, index) {
                 final chatMessage = chatProvider.chatMessages[index];
-                return BubbleSpecialThree(
-                  text: chatMessage.message,
-                  isSender:
-                      chatMessage.messageSenderName == appUser ? true : false,
-                  tail: false,
-                  color: chatMessage.messageSenderName == appUser
-                      ? const Color(0xFF1B97F3)
-                      : const Color(0xFFE8E8EE),
+                return GestureDetector(
+                  onLongPress: () => chatProvider.deleteMessage(chatProvider.chatMessages[index]),
+                  child: BubbleSpecialThree(
+                    text: chatMessage.message,
+                    isSender:
+                        chatMessage.messageSenderName == appUser ? true : false,
+                    tail: false,
+                    color: chatMessage.messageSenderName == appUser
+                        ? const Color(0xFF1B97F3)
+                        : const Color(0xFFE8E8EE),
+                  ),
                 );
               },
             ),
@@ -71,4 +74,5 @@ class ChatScreen extends StatelessWidget {
         timestamp: Timestamp.now());
     chatProvider.sendMessage(message);
   }
+
 }
