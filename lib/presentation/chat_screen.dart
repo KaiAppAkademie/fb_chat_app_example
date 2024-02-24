@@ -28,7 +28,14 @@ class ChatScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final chatMessage = chatProvider.chatMessages[index];
                 return GestureDetector(
-                  onLongPress: () => chatProvider.deleteMessage(chatProvider.chatMessages[index]),
+                  onLongPress: () {
+                    showBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return _buildBottomSheet();
+                      },
+                    );
+                  },
                   child: BubbleSpecialThree(
                     text: chatMessage.message,
                     isSender:
@@ -75,4 +82,14 @@ class ChatScreen extends StatelessWidget {
     chatProvider.sendMessage(message);
   }
 
+  Widget _buildBottomSheet() {
+    return const SizedBox(
+      height: 200,
+      child: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [],
+      )),
+    );
+  }
 }

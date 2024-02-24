@@ -34,12 +34,18 @@ class FirebaseChatRepository implements ChatRepository {
     });
   }
 
-
-
   @override
   void deleteMessage(MessageModel messageModel) {
     final CollectionReference<Map<String, dynamic>> messagesCollectionsRef =
         _firestore.collection('messages');
       messagesCollectionsRef.doc(messageModel.id).delete();
   }
+  
+  @override
+  void editMessage(MessageModel newMessageData) {
+   final CollectionReference<Map<String, dynamic>> messagesCollectionsRef =
+        _firestore.collection('messages');
+    messagesCollectionsRef.doc(newMessageData.id).update({'message': newMessageData.message});
+  } 
+  
 }

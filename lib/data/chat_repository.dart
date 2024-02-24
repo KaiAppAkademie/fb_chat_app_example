@@ -5,4 +5,5 @@ abstract class ChatRepository {
   void resetAllMessages();
   void sendMessage(MessageModel messageModel);
   void deleteMessage(MessageModel messageModel);
+  void editMessage(MessageModel newMessageData);
 }

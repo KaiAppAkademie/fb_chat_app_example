@@ -44,4 +44,8 @@ class MessageModelNotifier extends ChangeNotifier {
   Future<void> deleteMessage(MessageModel messageModel) async{
     _chatRepository.deleteMessage(messageModel);
   }
+
+  Future<void> updateChatMessage(MessageModel newMessageModel) async{
+    _chatRepository.editMessage(newMessageModel);
+  }
 }
