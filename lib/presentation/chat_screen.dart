@@ -2,6 +2,7 @@ import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fb_chat_example/common/chat_message_notifier.dart';
 import 'package:fb_chat_example/domain/message_model.dart';
+import 'package:fb_chat_example/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +33,8 @@ class ChatScreen extends StatelessWidget {
                     showBottomSheet(
                       context: context,
                       builder: (context) {
-                        return _buildBottomSheet();
+                        return _buildBottomSheet(
+                            chatProvider, context, chatMessage);
                       },
                     );
                   },
@@ -82,14 +84,44 @@ class ChatScreen extends StatelessWidget {
     chatProvider.sendMessage(message);
   }
 
-  Widget _buildBottomSheet() {
-    return const SizedBox(
-      height: 200,
+  Widget _buildBottomSheet(MessageModelNotifier chatProvider,
+      BuildContext context, MessageModel model) {
+    return SizedBox(
+      height: 220,
       child: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          /// TODO: Implement Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                icon: const Icon(
+                  Icons.edit,
+                  color: Color.fromARGB(255, 184, 138, 2),
+                  size: 60,
+                ),
+                onTap: () {
+                  print("Edit Button");
+                  Navigator.pop(context);
+                },
+              ),
+              const SizedBox(
+                width: 40,
+              ),
+              CustomButton(
+                icon: const Icon(
+                  Icons.delete,
+                  color: Color.fromARGB(255, 196, 49, 16),
+                  size: 60,
+                ),
+                onTap: () {
+                  chatProvider.deleteMessage(model);
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          )
         ],
       )),
     );
