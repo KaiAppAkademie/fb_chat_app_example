@@ -88,7 +88,9 @@ class ChatScreen extends StatelessWidget {
       child: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [],
+        children: [
+          /// TODO: Implement Buttons
+        ],
       )),
     );
   }
