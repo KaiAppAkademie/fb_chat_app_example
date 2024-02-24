@@ -34,7 +34,7 @@ class ChatScreen extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return _buildBottomSheet(
-                            chatProvider, context, chatMessage);
+                            chatProvider, context, chatMessage, controller);
                       },
                     );
                   },
@@ -60,8 +60,14 @@ class ChatScreen extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
-                    onTap: () =>
-                        _sendMessage(chatProvider, appUser, controller.text),
+                    onTap: () {
+                      if (!chatProvider.isEditing) {
+                        _sendMessage(chatProvider, appUser, controller.text);
+                      } else {
+                        //TODO: Edit Message
+                        chatProvider.changeEditingState(false);
+                      }
+                    },
                     child:
                         const Icon(Icons.send, size: 30, color: Colors.white)),
                 border: const OutlineInputBorder(),
@@ -84,8 +90,11 @@ class ChatScreen extends StatelessWidget {
     chatProvider.sendMessage(message);
   }
 
-  Widget _buildBottomSheet(MessageModelNotifier chatProvider,
-      BuildContext context, MessageModel model) {
+  Widget _buildBottomSheet(
+      MessageModelNotifier chatProvider,
+      BuildContext context,
+      MessageModel model,
+      TextEditingController controller) {
     return SizedBox(
       height: 220,
       child: Center(
@@ -103,6 +112,8 @@ class ChatScreen extends StatelessWidget {
                 ),
                 onTap: () {
                   print("Edit Button");
+                  chatProvider.changeEditingState(true);
+                  controller.text = model.message;
                   Navigator.pop(context);
                 },
               ),

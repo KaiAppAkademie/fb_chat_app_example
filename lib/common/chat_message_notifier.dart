@@ -7,8 +7,10 @@ class MessageModelNotifier extends ChangeNotifier {
   final ChatRepository _chatRepository = FirebaseChatRepository();
 
   final List<MessageModel> _chatMessages = [];
+  bool _isEditing = false;
 
   List<MessageModel> get chatMessages => _chatMessages;
+  bool get isEditing => _isEditing;
 
   MessageModelNotifier() {
     _subscripeMessageChannel();
@@ -41,11 +43,16 @@ class MessageModelNotifier extends ChangeNotifier {
     _chatRepository.sendMessage(messageModel);
   }
 
-  Future<void> deleteMessage(MessageModel messageModel) async{
+  Future<void> deleteMessage(MessageModel messageModel) async {
     _chatRepository.deleteMessage(messageModel);
   }
 
-  Future<void> updateChatMessage(MessageModel newMessageModel) async{
+  Future<void> updateChatMessage(MessageModel newMessageModel) async {
     _chatRepository.editMessage(newMessageModel);
+  }
+
+  void changeEditingState(bool newValue) {
+    _isEditing = newValue;
+    notifyListeners();
   }
 }
