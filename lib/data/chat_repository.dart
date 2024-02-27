@@ -1,9 +1,9 @@
-import 'package:fb_chat_example/domain/message_model.dart';
+import 'package:fb_chat_example/domain/message.dart';
 
 abstract class ChatRepository {
-  Stream<List<MessageModel>> get messageChannel;
-  void resetAllMessages();
-  void sendMessage(MessageModel messageModel);
-  void deleteMessage(MessageModel messageModel);
-  void editMessage(MessageModel newMessageData);
+  Stream<List<Message>> get messageChannel;
+  void deleteAllMessages();
+  void sendMessage(Message message);
+  void deleteMessage(Message message);
+  void editMessage(Message message);
 }

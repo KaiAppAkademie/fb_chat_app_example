@@ -1,10 +1,10 @@
 name: fb_chat_example
-description: "A new Flutter project."
+description: "A small chat app showing how to use firebase and firestore."
 publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 
 dependencies:
   chat_bubbles: ^1.6.0
