@@ -1,3 +1,11 @@
 # fb_chat_example
 
-A new Flutter project.
+A small chat app showing how to use firebase and firestore.
+
+In order to use it, you need to connect a firebase project to the app. You can do this by following the instructions on the [firebase console](https://console.firebase.google.com/).
+
+In short, run the following commands in the terminal:
+
+```bash
+flutterfire configure --project=<firebase-project-name>
+```
