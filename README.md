@@ -9,3 +9,8 @@ In short, run the following commands in the terminal:
 ```bash
 flutterfire configure --project=<firebase-project-name>
 ```
+
+Messages from other users need to be added by hand in firestore, for the time being.
+
+## Screenshot
+![](fb_chat_screenshot.jpg)

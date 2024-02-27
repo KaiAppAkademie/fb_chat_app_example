@@ -9,7 +9,7 @@ class ChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MessageModelNotifier(),
+      create: (context) => ChatMessageNotifier(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: ChatScreen(),

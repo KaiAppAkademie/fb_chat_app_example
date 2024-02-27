@@ -1,5 +1,5 @@
 name: fb_chat_example
-description: "A new Flutter project."
+description: "A small chat app showing how to use firebase and firestore."
 publish_to: 'none'
 version: 0.1.0
 

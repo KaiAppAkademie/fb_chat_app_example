@@ -1,22 +1,22 @@
 import 'package:fb_chat_example/data/chat_repository.dart';
 import 'package:fb_chat_example/data/firebase_chat_repository.dart';
-import 'package:fb_chat_example/domain/message_model.dart';
+import 'package:fb_chat_example/domain/message.dart';
 import 'package:flutter/material.dart';
 
-class MessageModelNotifier extends ChangeNotifier {
-  final ChatRepository _chatRepository = FirebaseChatRepository();
-
-  final List<MessageModel> _chatMessages = [];
-  bool _isEditing = false;
-
-  List<MessageModel> get chatMessages => _chatMessages;
-  bool get isEditing => _isEditing;
-
-  MessageModelNotifier() {
-    _subscripeMessageChannel();
+class ChatMessageNotifier extends ChangeNotifier {
+  ChatMessageNotifier() {
+    _subscribeMessageChannel();
   }
 
-  Future<void> _subscripeMessageChannel() async {
+  final ChatRepository _chatRepository = FirebaseChatRepository();
+
+  final List<Message> _chatMessages = [];
+  bool _isEditing = false;
+
+  List<Message> get chatMessages => _chatMessages;
+  bool get isEditing => _isEditing;
+
+  Future<void> _subscribeMessageChannel() async {
     try {
       _chatRepository.messageChannel.listen((messages) {
         _chatMessages.clear();
@@ -36,19 +36,19 @@ class MessageModelNotifier extends ChangeNotifier {
   }
 
   Future<void> resetChat() async {
-    _chatRepository.resetAllMessages();
+    _chatRepository.deleteAllMessages();
   }
 
-  Future<void> sendMessage(MessageModel messageModel) async {
-    _chatRepository.sendMessage(messageModel);
+  Future<void> sendMessage(Message message) async {
+    _chatRepository.sendMessage(message);
   }
 
-  Future<void> deleteMessage(MessageModel messageModel) async {
-    _chatRepository.deleteMessage(messageModel);
+  Future<void> deleteMessage(Message message) async {
+    _chatRepository.deleteMessage(message);
   }
 
-  Future<void> updateChatMessage(MessageModel newMessageModel) async {
-    _chatRepository.editMessage(newMessageModel);
+  Future<void> updateMessage(Message message) async {
+    _chatRepository.editMessage(message);
   }
 
   void changeEditingState(bool newValue) {
