@@ -1,14 +1,14 @@
 import 'package:fb_chat_example/data/chat_repository.dart';
-import 'package:fb_chat_example/data/firebase_chat_repository.dart';
 import 'package:fb_chat_example/domain/message.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessageNotifier extends ChangeNotifier {
-  ChatMessageNotifier() {
+  ChatMessageNotifier({required chatRepository})
+      : _chatRepository = chatRepository {
     _subscribeMessageChannel();
   }
 
-  final ChatRepository _chatRepository = FirebaseChatRepository();
+  final ChatRepository _chatRepository;
 
   final List<Message> _chatMessages = [];
   bool _isEditing = false;
@@ -51,6 +51,7 @@ class ChatMessageNotifier extends ChangeNotifier {
     _chatRepository.editMessage(message);
   }
 
+  // TODO: Implement :)
   void changeEditingState(bool newValue) {
     _isEditing = newValue;
     notifyListeners();

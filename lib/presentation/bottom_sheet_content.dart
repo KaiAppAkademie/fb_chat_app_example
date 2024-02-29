@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fb_chat_example/common/chat_message_notifier.dart';
 import 'package:fb_chat_example/domain/message.dart';
 import 'package:fb_chat_example/presentation/widgets/custom_button.dart';
@@ -34,7 +36,7 @@ class BottomSheetContent extends StatelessWidget {
                     size: 60,
                   ),
                   onTap: () {
-                    print("Edit Button");
+                    log("Edit Button");
                     chatNotifier.changeEditingState(true);
                     controller.text = model.text;
                     Navigator.pop(context);

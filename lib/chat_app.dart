@@ -1,5 +1,6 @@
-import 'package:fb_chat_example/common/chat_message_notifier.dart';
+import 'package:fb_chat_example/common/auth_notifier.dart';
 import 'package:fb_chat_example/presentation/chat_screen.dart';
+import 'package:fb_chat_example/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,12 +9,13 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ChatMessageNotifier(),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: ChatScreen(),
-      ),
+    final authNotifier = Provider.of<AuthNotifier>(context);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: authNotifier.isUserLoggedIn
+          ? const ChatScreen()
+          : const LoginScreen(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fb_chat_example/common/auth_notifier.dart';
 import 'package:fb_chat_example/common/chat_message_notifier.dart';
 import 'package:fb_chat_example/domain/message.dart';
 import 'package:fb_chat_example/presentation/bottom_sheet_content.dart';
@@ -12,6 +13,8 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatNotifier = Provider.of<ChatMessageNotifier>(context);
+    final authNotifier = Provider.of<AuthNotifier>(context);
+
     TextEditingController messageTextController = TextEditingController();
     String appUserName = "Lukas";
 
@@ -20,6 +23,14 @@ class ChatScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 176, 242, 178),
         centerTitle: true,
         title: const Text("Basic Chat Application"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              authNotifier.logoutUser();
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(

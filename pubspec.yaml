@@ -9,6 +9,7 @@ environment:
 dependencies:
   chat_bubbles: ^1.6.0
   cloud_firestore: ^4.15.5
+  firebase_auth: ^4.17.6
   firebase_core: ^2.25.4
   flutter:
     sdk: flutter
