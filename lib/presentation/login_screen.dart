@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final authNotifier = Provider.of<AuthNotifier>(context);
 
     return Scaffold(
+      backgroundColor: const Color(0xFF1d0146),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -43,14 +44,17 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 64.0),
             TextField(
               controller: mailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(
+                  labelText: 'Email', fillColor: Colors.white),
               keyboardType: TextInputType.emailAddress,
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 32.0),
             // SignInButton(
