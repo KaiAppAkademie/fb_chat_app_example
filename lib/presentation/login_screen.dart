@@ -39,18 +39,20 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset("assets/images/foo_bar_chat_hero_image.jpg"),
+            const SizedBox(height: 64.0),
             TextField(
               controller: mailController,
               decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 16.0),
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 32.0),
             // SignInButton(
             //   Buttons.Google,
             //   mini: false,
