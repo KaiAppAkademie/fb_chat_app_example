@@ -29,7 +29,8 @@ service cloud.firestore {
   	// If the users is logged in, 
     match /messages/{documentId} {
       allow read: if request.auth != null;
-      allow write: if request.resource.data.messageSenderName == request.auth.token.email;
+      allow write: if request.auth != null &&
+        request.resource.data.messageSenderName == request.auth.token.email;
     }
   }
 }
