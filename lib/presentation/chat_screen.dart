@@ -2,6 +2,7 @@ import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fb_chat_example/common/auth_notifier.dart';
 import 'package:fb_chat_example/common/chat_message_notifier.dart';
+import 'package:fb_chat_example/common/constants.dart';
 import 'package:fb_chat_example/domain/message.dart';
 import 'package:fb_chat_example/presentation/bottom_sheet_content.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,14 @@ class ChatScreen extends StatelessWidget {
     final authNotifier = Provider.of<AuthNotifier>(context);
 
     TextEditingController messageTextController = TextEditingController();
-    String appUserName = "Lukas";
+
+    final String currentUserName = authNotifier.currentUser!.email!;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 176, 242, 178),
         centerTitle: true,
-        title: const Text("Basic Chat Application"),
+        title: Text(authNotifier.currentUser?.email ?? '???'),
         actions: [
           IconButton(
             onPressed: () {
@@ -41,6 +43,7 @@ class ChatScreen extends StatelessWidget {
                 itemCount: chatNotifier.chatMessages.length,
                 itemBuilder: (context, index) {
                   final chatMessage = chatNotifier.chatMessages[index];
+                  final messageSenderName = chatMessage.messageSenderName;
 
                   return GestureDetector(
                     onLongPress: () {
@@ -56,13 +59,11 @@ class ChatScreen extends StatelessWidget {
                     },
                     child: BubbleSpecialThree(
                       text: chatMessage.text,
-                      isSender: chatMessage.messageSenderName == appUserName
-                          ? true
-                          : false,
+                      isSender: messageSenderName == currentUserName,
                       tail: false,
-                      color: chatMessage.messageSenderName == appUserName
-                          ? const Color(0xFF1B97F3)
-                          : const Color(0xFFE8E8EE),
+                      color: messageSenderName == currentUserName
+                          ? bubbleDefaultColor
+                          : colorForUser(messageSenderName),
                     ),
                   );
                 },
@@ -78,7 +79,7 @@ class ChatScreen extends StatelessWidget {
                     onTap: () {
                       if (!chatNotifier.isEditing) {
                         final message = _createMessage(
-                          appUserName,
+                          currentUserName,
                           messageTextController.text,
                         );
                         chatNotifier.sendMessage(message);
@@ -87,8 +88,11 @@ class ChatScreen extends StatelessWidget {
                         chatNotifier.changeEditingState(false);
                       }
                     },
-                    child:
-                        const Icon(Icons.send, size: 30, color: Colors.white),
+                    child: const Icon(
+                      Icons.send,
+                      size: 30,
+                      color: Colors.white,
+                    ),
                   ),
                   border: const OutlineInputBorder(),
                   labelText: 'Enter a Message',

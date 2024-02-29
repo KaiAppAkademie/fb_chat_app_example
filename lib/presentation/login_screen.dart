@@ -35,25 +35,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               controller: mailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-              ),
+              decoration: const InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 20.0),
             TextField(
               controller: passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
+              decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
-            // const SizedBox(height: 20.0),
+            const SizedBox(height: 24.0),
             // SignInButton(
             //   Buttons.Google,
             //   mini: false,
@@ -66,28 +63,37 @@ class _LoginScreenState extends State<LoginScreen> {
             //     }
             //   },
             // ),
-            ElevatedButton(
-              onPressed: () {
-                String mail = mailController.text.trim();
-                String password = passwordController.text.trim();
-
-                authNotifier.loginUser(mail, password);
-              },
-              child: const Text('Login'),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  String mail = mailController.text.trim();
-                  String password = passwordController.text.trim();
-                  authNotifier.signUp(mail, password);
-                },
-                child: const Text("SignUp")),
-            ElevatedButton(
-                onPressed: () {
-                  String mail = mailController.text.trim();
-                  authNotifier.resetPassword(mail);
-                },
-                child: const Text("Reset Password"))
+            IntrinsicWidth(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      String mail = mailController.text.trim();
+                      String password = passwordController.text.trim();
+                      authNotifier.loginUser(mail, password);
+                    },
+                    child: const Text('Login'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      String mail = mailController.text.trim();
+                      String password = passwordController.text.trim();
+                      authNotifier.signUp(mail, password);
+                    },
+                    child: const Text("SignUp"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      String mail = mailController.text.trim();
+                      authNotifier.resetPassword(mail);
+                    },
+                    child: const Text("Reset Password"),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
